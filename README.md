@@ -21,3 +21,8 @@ feed_links = ["https://techcentral.co.za/feed", "https://ventureburn.com/feed"]
 ```python
 python3 rss_feed_reader.py
 ```
+- to run on Linux
+```bash
+chmod u+x rss_feed_reader.py
+./rss_feed_reader.py
+```
