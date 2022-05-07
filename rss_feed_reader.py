@@ -1,19 +1,20 @@
-#!/usr/bin/python3
-
 from bs4 import BeautifulSoup
 import requests
+from pyfiglet import figlet_format
+import warnings
+
+
+warnings.filterwarnings("ignore")
 
 
 class Item(object):
-    def __init__(self, _title: str, _link: str, _pub_date: str, _description: str):
+    def __init__(self, _title: str, _link: str, _pub_date: str):
         self.title = _title
         self.link = _link
         self.pub_date = _pub_date
-        self.description = _description
 
     def __str__(self):
-        return "title: " + self.title + "\n" + "link: " + self.link + "\n" + "pubDate: " + self.pub_date + "\n" + "description: " + self.description + "\n"
-        
+        return "\u001b[36mtitle: " + self.title + "\n" + "link: " + self.link + "\n" + "pubDate: " + self.pub_date + "\n"
 
 
 class RSSFeedReader(object):
@@ -28,13 +29,14 @@ class RSSFeedReader(object):
             items = soup.findAll("item")
 
             for item in items:
-                item = Item(item.title.text, item.guid.text, item.pubdate.text, item.description.text[9:-3])
+                item = Item(item.title.text, item.guid.text, item.pubdate.text)
                 feeds.append(item)
 
         return feeds
 
 
 if __name__ == "__main__":
+    print("\u001b[32m" + figlet_format("RSS FEED Reader", font="standard"))
     feed_links = ["https://techcentral.co.za/feed", "https://ventureburn.com/feed"]
     rss_feed = RSSFeedReader(feed_links)
     news_stories = rss_feed.get_feeds()
